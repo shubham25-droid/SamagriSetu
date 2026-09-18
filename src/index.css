@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Noto Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: 'Noto Sans Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  --national-navy: #0B192C;
+  --national-navy-light: #1E3E62;
+  --national-steel: #334155;
+  --national-accent: #0284C7;
+  --national-surface: #EDF5FD;
+  --national-border: #CBD5E1;
+  --ashoka-blue: #0A2647;
+}
+
+/* Global Government Enterprise Typography (UX4G & Noto Sans standard) */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, .font-mono {
+  font-family: 'Noto Sans Mono', monospace;
+}
+
+/* Attractive light blue blueprint engineering grid */
+.bg-blueprint-grid {
+  background-color: #EBF4FC;
+  background-image: 
+    linear-gradient(to right, rgba(2, 132, 199, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 132, 199, 0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Subtle dot matrix grid */
+.bg-grid-subtle {
+  background-image: radial-gradient(rgba(11, 25, 44, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Industrial technical border */
+.border-blueprint {
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+/* High-contrast accessible scrollbars for dense enterprise tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #E2E8F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+}
+
+/* Pulse animation for data packets along conduits */
+@keyframes conduit-pulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+.animate-conduit-pulse {
+  animation: conduit-pulse 2s infinite ease-in-out;
+}
+
+/* Smooth fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
