@@ -48,10 +48,10 @@ export const HelpPage: React.FC = () => {
         </p>
         <div className="p-3 bg-slate-50 border border-slate-200 rounded-xs text-xs font-mono space-y-1.5 text-slate-800">
           <div className="font-bold text-slate-900 mb-1">Example of Cross-Enterprise Catalog Fragmentation:</div>
-          <div>• <strong>ONGC:</strong> <code className="bg-white px-1 border border-slate-300">ONGC-BV-1023</code> — "BALL V/V 2 IN CS" (SAP S/4HANA)</div>
-          <div>• <strong>IOCL:</strong> <code className="bg-white px-1 border border-slate-300">IOCL-VAL-7781</code> — "2" CARBON STEEL BALL VALVE" (SAP ECC 6.0)</div>
-          <div>• <strong>BHEL:</strong> <code className="bg-white px-1 border border-slate-300">BHEL-M-5512</code> — "BALL V/V 50MM CS" (Oracle EBS)</div>
-          <div>• <strong>SAIL:</strong> <code className="bg-white px-1 border border-slate-300">SAIL-VAL-3301</code> — "BALL VALVE 50 NB CL150 CS FLGD" (Legacy ERP)</div>
+          <div>• <strong>ONGC:</strong> <code className="bg-white px-1 border border-slate-300">ONGC-BV-1023</code> - "BALL V/V 2 IN CS" (SAP S/4HANA)</div>
+          <div>• <strong>IOCL:</strong> <code className="bg-white px-1 border border-slate-300">IOCL-VAL-7781</code> - "2" CARBON STEEL BALL VALVE" (SAP ECC 6.0)</div>
+          <div>• <strong>BHEL:</strong> <code className="bg-white px-1 border border-slate-300">BHEL-M-5512</code> - "BALL V/V 50MM CS" (Oracle EBS)</div>
+          <div>• <strong>SAIL:</strong> <code className="bg-white px-1 border border-slate-300">SAIL-VAL-3301</code> - "BALL VALVE 50 NB CL150 CS FLGD" (Legacy ERP)</div>
         </div>
         <p className="text-xs text-slate-700 leading-relaxed">
           SamagriSetu identifies technical convergence across these records, generates a <strong>Recommended Common National Material Code (CNMC)</strong>, and maintains non-destructive bi-directional cross-indexes without altering internal CPSE general ledgers or plant asset registries.

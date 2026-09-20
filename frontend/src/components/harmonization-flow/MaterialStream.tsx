@@ -436,7 +436,7 @@ export const MaterialStream: React.FC<MaterialStreamProps> = ({ currentStep }) =
         {currentStep === 1 && (
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-slate-800">
             <div>
-              <strong className="text-slate-950 font-bold">Stage 1: Fragmented Material Masters — </strong>
+              <strong className="text-slate-950 font-bold">Stage 1: Fragmented Material Masters - </strong>
               Four independent CPSEs catalog the identical 2" Class 150 carbon steel globe valve under divergent abbreviations (<code className="bg-sky-100/70 px-1 py-0.5 rounded text-sky-950 font-mono">2 IN</code> vs <code className="bg-sky-100/70 px-1 py-0.5 rounded text-sky-950 font-mono">DN50</code>, <code className="bg-sky-100/70 px-1 py-0.5 rounded text-sky-950 font-mono">CL.150</code> vs <code className="bg-sky-100/70 px-1 py-0.5 rounded text-sky-950 font-mono">150#</code>) and disparate ERP item codes.
             </div>
             <span className="text-xs font-mono font-bold text-amber-800 shrink-0 bg-amber-50 px-2.5 py-1 rounded border border-amber-300">
@@ -449,7 +449,7 @@ export const MaterialStream: React.FC<MaterialStreamProps> = ({ currentStep }) =
           <div className="space-y-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-slate-800">
               <div>
-                <strong className="text-slate-950 font-bold">Stage 2: Core Harmonization & Safety Interception — </strong>
+                <strong className="text-slate-950 font-bold">Stage 2: Core Harmonization & Safety Interception - </strong>
                 The engine normalizes abbreviations (<code className="bg-sky-100/70 px-1 py-0.5 rounded text-sky-950 font-mono">GLB VLV → Globe Valve</code>, <code className="bg-sky-100/70 px-1 py-0.5 rounded text-sky-950 font-mono">DN50 → 2 Inch</code>, <code className="bg-sky-100/70 px-1 py-0.5 rounded text-sky-950 font-mono">A216 WCB → Carbon Steel</code>), parses engineering attributes, and enforces ASME safety hard-locks.
               </div>
               <span className="text-xs font-mono font-bold text-sky-800 shrink-0 bg-sky-100 px-2.5 py-1 rounded border border-sky-300">
@@ -472,7 +472,7 @@ export const MaterialStream: React.FC<MaterialStreamProps> = ({ currentStep }) =
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
               <span>
-                <strong className="text-slate-950 font-bold">Stage 3: Common National Material Code (CNMC-000001) — </strong>
+                <strong className="text-slate-950 font-bold">Stage 3: Common National Material Code (CNMC-000001) - </strong>
                 Unified Golden Record created with permanent non-destructive two-way traceability back to original CPSE plant ERPs: <code className="bg-emerald-100 text-emerald-950 px-1 py-0.5 rounded font-mono text-[11px]">ONGC-0001</code>, <code className="bg-emerald-100 text-emerald-950 px-1 py-0.5 rounded font-mono text-[11px]">IOCL-0001</code>, <code className="bg-emerald-100 text-emerald-950 px-1 py-0.5 rounded font-mono text-[11px]">BHEL-0001</code>, <code className="bg-emerald-100 text-emerald-950 px-1 py-0.5 rounded font-mono text-[11px]">SAIL-0001</code>.
               </span>
             </div>

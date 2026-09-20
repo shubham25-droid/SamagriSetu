@@ -43,7 +43,7 @@ export const NationalMaterialDetailModal: React.FC<NationalMaterialDetailModalPr
                 Common National Material Code (CNMC)
               </span>
               <h3 className="text-base font-bold text-white mt-0.5 leading-snug">
-                {material.nationalCode} — {material.standardDescription}
+                {material.nationalCode} - {material.standardDescription}
               </h3>
             </div>
             <Badge value={material.approvalStatus} />

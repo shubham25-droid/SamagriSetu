@@ -59,7 +59,7 @@ export const SamagriSetuHarmonizationScene: React.FC<SamagriSetuHarmonizationSce
             From Fragmented Material Masters to One Common Code
           </h2>
           <p className="text-xs text-slate-700 leading-relaxed font-normal">
-            SamagriSetu harmonizes material records across CPSEs by comparing descriptions, technical attributes and specifications—then routes recommendations through human validation before creating a Common National Material Code.
+            SamagriSetu harmonizes material records across CPSEs by comparing descriptions, technical attributes and specifications-then routes recommendations through human validation before creating a Common National Material Code.
           </p>
         </div>
 

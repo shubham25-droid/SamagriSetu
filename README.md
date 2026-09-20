@@ -4,7 +4,7 @@
 
 SamagriSetu is an AI-assisted material master harmonization platform designed to address catalog fragmentation and inventory opacity across Indian Central Public Sector Enterprises (CPSEs). Developed around the Smart India Hackathon problem statement **SIH26099** (*Ministry of Petroleum & Natural Gas / Chennai Petroleum Corporation Limited*), the platform provides an automated and auditable mechanism to ingest, normalize, compare, and resolve disparate enterprise material records into a unified national taxonomy.
 
-In industrial operations, different CPSEs—such as upstream exploration, downstream refining, power generation, and heavy manufacturing—frequently procure identical mechanical equipment, valves, pipes, and electrical instruments. However, because each enterprise manages independent Enterprise Resource Planning (ERP) systems, the same physical item is cataloged under divergent CPSE material codes, inconsistent abbreviations, mixed units of measure (metric vs. imperial), and unstructured text strings. This lack of common material identity prevents centralized visibility, duplicates tender efforts, and inflates buffer inventories.
+In industrial operations, different CPSEs-such as upstream exploration, downstream refining, power generation, and heavy manufacturing-frequently procure identical mechanical equipment, valves, pipes, and electrical instruments. However, because each enterprise manages independent Enterprise Resource Planning (ERP) systems, the same physical item is cataloged under divergent CPSE material codes, inconsistent abbreviations, mixed units of measure (metric vs. imperial), and unstructured text strings. This lack of common material identity prevents centralized visibility, duplicates tender efforts, and inflates buffer inventories.
 
 SamagriSetu resolves this by extracting discrete technical attributes (such as equipment type, nominal dimensions, pressure ratings, metallurgy, and design standards) from unstructured descriptions, evaluating cross-enterprise candidates using multi-parameter similarity algorithms, and recommending a standardized **Common National Material Code (CNMC)**. Crucially, the platform operates on a non-destructive governance model: original CPSE material codes are permanently preserved for bi-directional traceability, and deterministic safety hard-locks flag engineering discrepancies for **human validation** before any canonical code is authorized.
 
@@ -130,6 +130,10 @@ For full production deployment within a national data center or cloud environmen
 
 | Layer | Technology | Purpose |
 |---|---|---|
+| **Backend API** | FastAPI (`fastapi` v0.110+) | Enterprise REST API serving parameter parsing, catalog endpoints, and safety checks |
+| **Backend Runtime** | Python 3.10+ / Uvicorn | High-concurrency ASGI web server for backend services |
+| **Data Validation** | Pydantic v2.6+ | Strict attribute schemas, CNMC records, and match candidate contracts |
+| **Data Processing** | Pandas v2.2+ | Ingestion and tabular processing of enterprise CSV catalogs |
 | **Frontend Framework** | React 19 (`react`, `react-dom` v19.2.8) | Declarative component UI and application state orchestration |
 | **Language & Tooling** | TypeScript (`typescript` v6.0.2) | Type-safe domain models, service contracts, and strict interface validation |
 | **Build & Bundler** | Vite (`vite` v8.3.0) | High-speed ESM development server and optimized production packaging |
@@ -137,9 +141,6 @@ For full production deployment within a national data center or cloud environmen
 | **Visualization & 3D** | Three.js (`three` v0.186.0) | WebGL-based interactive 3D harmonization topology visualizer |
 | **Icons & Micro-UI** | Lucide React (`lucide-react` v1.47.0) | Clean, accessible iconography across navigation and data tables |
 | **Code Quality / Linter**| Oxlint (`oxlint` v1.81.0) | High-performance Rust-based static code analysis and lint verification |
-| **Data Ingestion** | Custom CSV Processing Script & Service | Structured CSV parsing, header mapping, and attribute tokenization |
-
-*(No external backend frameworks such as Python/FastAPI or external SQL databases are present in this repository; the current release is completely self-contained within the TypeScript application).*
 
 ---
 
@@ -147,63 +148,32 @@ For full production deployment within a national data center or cloud environmen
 
 ```text
 SamagriSetu/
-├── data/                                 # Prototype demonstration CSV catalogs
-│   ├── BHEL.csv                          # BHEL power & industrial equipment records (100)
-│   ├── IOCL.csv                          # IOCL refinery & pipeline records (100)
-│   ├── ONGC.csv                          # ONGC upstream exploration records (100)
-│   └── SAIL.csv                          # SAIL steel & structural records (100)
-├── docs/                                 # Architectural & domain documentation
-│   ├── DATA_MODEL.md                     # TypeScript domain schema reference
-│   ├── DEMO_FLOW.md                      # Guided walkthrough script for evaluators
-│   ├── MATERIAL_HARMONIZATION_WORKFLOW.md# Step-by-step lifecycle documentation
-│   └── PROJECT_ARCHITECTURE.md           # System design & component interaction
-├── public/                               # Static assets and public-served files
-│   ├── data/                             # Publicly accessible CSV catalogs
-│   ├── samagrisetu-logo.png              # Official platform emblem
-│   └── *.jpg                             # Industrial photography assets
-├── scripts/
-│   └── parseCSVs.js                      # Utility script for preprocessing CSV records
-├── src/
-│   ├── components/
-│   │   ├── audit/                        # Audit trail timeline and event inspection tables
-│   │   ├── cpse-data/                    # Upload wizards, catalog explorer, and detail modals
-│   │   ├── dashboard/                    # Executive KPI cards, distribution charts, summaries
-│   │   ├── harmonization-flow/           # Three.js 3D WebGL harmonization flow components
-│   │   ├── integration/                  # Enterprise ERP connector architecture visualizer
-│   │   ├── layout/                       # AppHeader, AppSidebar, AppLayout, and banners
-│   │   ├── mapping/                      # CPSE legacy code cross-reference mapping tables
-│   │   ├── material-master/              # National master tables, detail modals, 1:N visuals
-│   │   ├── material-matching/            # Attribute matrix, match evidence, conflict banners
-│   │   ├── review/                       # Review queue, adjudication modals, technical reports
-│   │   └── shared/                       # Badges, modals, empty states, 3D topology wrapper
-│   ├── data/
-│   │   ├── actualCSVDataset.ts           # In-memory compiled demonstration catalog (400 records)
-│   │   ├── actualMatchCandidates.ts      # Multi-CPSE match candidates with pre-evaluated scores
-│   │   └── syntheticMaterialData.ts      # Legacy benchmark test fixture data
-│   ├── pages/                            # 19 dedicated workflow pages & route views
-│   │   ├── LandingPage.tsx               # Institutional public landing page
-│   │   ├── DashboardPage.tsx             # Central overview & metric telemetry
-│   │   ├── MaterialReviewPage.tsx        # Chief Reviewer evaluation & decision queue
-│   │   ├── MaterialMatchingPage.tsx      # Matching analysis & attribute comparison console
-│   │   ├── CPSEDataImportPage.tsx        # Officer CSV ingestion & parameter parsing portal
-│   │   ├── NationalMaterialMasterPage.tsx# Approved canonical CNMC directory
-│   │   └── ...                           # Additional operational & audit views
-│   ├── services/                         # Core algorithmic and state management services
-│   │   ├── CPSEDataImportService.ts      # CSV intake, schema parsing, validation
-│   │   ├── MaterialMatchingService.ts    # Similarity engine, attribute extraction, hard-locks
-│   │   ├── NationalMaterialService.ts    # CNMC issuance, lineage management, localStorage
-│   │   ├── AuditTrailService.ts          # Governance event tracking
-│   │   └── DataSourceService.ts          # Enterprise feed simulation
-│   ├── types/                            # Strict TypeScript interfaces and domain types
-│   ├── App.tsx                           # Master routing, authentication, and persona handler
-│   ├── index.css                         # Tailwind CSS v4 styling & typography
-│   └── main.tsx                          # React DOM application entry point
+├── backend/                              # Python / FastAPI enterprise backend service
+│   ├── data/                             # Prototype demonstration CSV catalogs (ONGC, IOCL, BHEL, SAIL)
+│   ├── models/                           # Pydantic schemas (MaterialAttributes, CNMCRecord, MatchEvidence)
+│   ├── routers/                          # API route handlers (/api/harmonize, /api/catalogs)
+│   ├── services/                         # Attribute extraction parser & safety hard-lock interceptor
+│   ├── main.py                           # FastAPI application entry point
+│   ├── README.md                         # Backend setup instructions & API reference
+│   └── requirements.txt                  # Python dependencies
+├── frontend/                             # React 19 + TypeScript + Vite web platform
+│   ├── docs/                             # Architecture & workflow documentation
+│   ├── public/                           # Static assets, platform emblem, industrial photography
+│   ├── src/
+│   │   ├── components/                   # Modular UI components (dashboard, review, topology)
+│   │   ├── data/                         # Compiled demonstration catalogs & match candidates
+│   │   ├── pages/                        # 19 dedicated workflow pages & route views
+│   │   ├── services/                     # Client-side state & harmonization engine
+│   │   ├── types/                        # Strict domain type contracts
+│   │   ├── App.tsx                       # Master routing & persona handler
+│   │   ├── index.css                     # Tailwind CSS v4 design system
+│   │   └── main.tsx                      # Application bootstrap entry point
+│   ├── package.json                      # Frontend dependencies & build scripts
+│   ├── tsconfig.json                     # TypeScript compiler configuration
+│   └── vite.config.ts                    # Vite build configuration
 ├── .gitignore                            # Security & build ignore rules
-├── .oxlintrc.json                        # Oxlint configuration
-├── index.html                            # HTML5 root template
-├── package.json                          # Node.js project manifest & dependency tree
-├── tsconfig.json                         # TypeScript compiler configuration
-└── vite.config.ts                        # Vite bundler configuration
+├── package.json                          # Root workspace runner
+└── README.md                             # Enterprise project documentation
 ```
 
 ---
@@ -434,7 +404,7 @@ The project demonstrates how domain-calibrated deterministic algorithms, combine
 ## Team
 
 **SamagriSetu Team**  
-*Team BodhZ — Smart India Hackathon 2026*  
+*Team BodhZ - Smart India Hackathon 2026*  
 Problem Statement: SIH26099
 
 ---

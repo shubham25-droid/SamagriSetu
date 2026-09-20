@@ -26,7 +26,7 @@ export const DemoDisclaimerBanner: React.FC<DemoDisclaimerBannerProps> = ({ onQu
           CENTRAL FEDERATION GATEWAY
         </span>
         <span className="text-slate-300 hidden lg:inline text-[11px]">
-          Department of Public Enterprises (DPE) • Inter-Ministerial Council (MoP&NG / MHI / MoS) • Master Sync Active: ONGC (100) | IOCL (100) | BHEL (100) | SAIL (100) — Total: 400 Real Records
+          Department of Public Enterprises (DPE) • Inter-Ministerial Council (MoP&NG / MHI / MoS) • Master Sync Active: ONGC (100) | IOCL (100) | BHEL (100) | SAIL (100) - Total: 400 Real Records
         </span>
       </div>
 

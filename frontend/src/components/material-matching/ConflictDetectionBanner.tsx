@@ -23,7 +23,7 @@ export const ConflictDetectionBanner: React.FC<ConflictDetectionBannerProps> = (
           </div>
           <div>
             <h4 className="text-sm font-black tracking-tight text-amber-950 uppercase font-mono flex items-center gap-2">
-              Hard Technical Conflict Detected — Auto-Merge Strictly Blocked
+              Hard Technical Conflict Detected - Auto-Merge Strictly Blocked
             </h4>
             <p className="text-xs text-amber-800 font-medium">
               High text similarity detected, but critical engineering parameters are incompatible.

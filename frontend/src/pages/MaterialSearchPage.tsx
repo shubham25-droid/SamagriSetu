@@ -65,7 +65,7 @@ export const MaterialSearchPage: React.FC<MaterialSearchPageProps> = ({
       );
 
       let matchStatus = 'RAW_INGEST';
-      let mappedNationalCode = mappedNational ? mappedNational.nationalCode : '—';
+      let mappedNationalCode = mappedNational ? mappedNational.nationalCode : '-';
 
       if (mappedNational) {
         matchStatus = 'MAPPED';
@@ -284,13 +284,13 @@ export const MaterialSearchPage: React.FC<MaterialSearchPageProps> = ({
                       {r.originalDescription}
                     </td>
                     <td className="py-2 px-3 text-slate-600 whitespace-nowrap">
-                      {r.materialCategory || '—'}
+                      {r.materialCategory || '-'}
                     </td>
                     <td className="py-2 px-3 font-semibold text-slate-700 whitespace-nowrap">
                       {r.uom}
                     </td>
                     <td className="py-2 px-3 text-slate-600 text-[11px] whitespace-nowrap">
-                      {[r.size, r.materialGrade, r.pressureRating].filter(Boolean).join(' | ') || '—'}
+                      {[r.size, r.materialGrade, r.pressureRating].filter(Boolean).join(' | ') || '-'}
                     </td>
                     <td className="py-2 px-3 whitespace-nowrap">
                       {r.matchStatus === 'MAPPED' ? (
@@ -312,7 +312,7 @@ export const MaterialSearchPage: React.FC<MaterialSearchPageProps> = ({
                       )}
                     </td>
                     <td className="py-2 px-3 whitespace-nowrap">
-                      {r.mappedNationalCode !== '—' ? (
+                      {r.mappedNationalCode !== '-' ? (
                         <button
                           type="button"
                           onClick={() => onSelectNationalCode && onSelectNationalCode(r.mappedNationalCode)}
@@ -335,7 +335,7 @@ export const MaterialSearchPage: React.FC<MaterialSearchPageProps> = ({
                           Inspect <ArrowRight className="w-2.5 h-2.5" />
                         </button>
                       ) : (
-                        <span className="text-slate-400 text-[10px]">—</span>
+                        <span className="text-slate-400 text-[10px]">-</span>
                       )}
                     </td>
                   </tr>

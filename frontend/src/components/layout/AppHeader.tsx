@@ -9,6 +9,8 @@ import {
   Search,
   Bell,
   Shield,
+  ShieldCheck,
+  Lock,
   ChevronDown,
   LogOut,
 } from 'lucide-react';
@@ -21,6 +23,9 @@ interface AppHeaderProps {
   currentRole?: string;
   currentOrg?: string;
   onSwitchRole?: (role: { name: string; org: string; role: string }) => void;
+  onOpenSecurityModal?: () => void;
+  sessionSecondsRemaining?: number;
+  onExtendSession?: () => void;
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
@@ -31,6 +36,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   currentRole = 'Chief Materials Manager',
   currentOrg = 'Inter-Ministerial Council / DPE',
   onSwitchRole,
+  onOpenSecurityModal,
+  sessionSecondsRemaining = 890,
+  onExtendSession,
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const [showNotifications, setShowNotifications] = useState(false);
@@ -113,6 +121,23 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
         {/* Right: Administrative Notification & User Controls */}
         <div className="flex items-center gap-2.5 shrink-0">
+          {/* Prototype Session Security Timer */}
+          <button
+            onClick={onOpenSecurityModal}
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 rounded border border-slate-300 text-xs font-mono font-semibold transition-colors shadow-2xs cursor-pointer"
+            title="Session Inactivity Timer. Click to open Security & Governance Overview."
+          >
+            <Lock className="w-3.5 h-3.5 text-sky-600" />
+            <span>
+              {sessionSecondsRemaining !== undefined
+                ? `${Math.floor(sessionSecondsRemaining / 60)}:${(sessionSecondsRemaining % 60).toString().padStart(2, '0')}`
+                : '14:48'}
+            </span>
+            <span className="hidden lg:inline text-[10px] text-sky-800 font-bold bg-sky-100 px-1 py-0.2 rounded border border-sky-300">
+              SEC
+            </span>
+          </button>
+
           <button
             onClick={() => onNavigate && onNavigate('landing')}
             className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded border border-slate-300 text-xs font-mono font-semibold transition-colors shadow-2xs"
@@ -180,7 +205,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               </div>
               <div className="hidden sm:block text-left">
                 <div className="text-xs font-semibold text-slate-900 leading-tight">{currentUser}</div>
-                <div className="text-[10px] text-slate-600 font-mono leading-tight">{currentRole} • {currentOrg}</div>
+                <div className="text-[10px] text-slate-600 font-mono leading-tight flex items-center gap-1">
+                  <span>{currentRole}</span>
+                  <span className="text-slate-400">•</span>
+                  <span className="text-sky-700 font-bold flex items-center gap-0.5">
+                    <ShieldCheck className="w-2.5 h-2.5 text-sky-600 inline" /> Verified
+                  </span>
+                </div>
               </div>
               <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
             </button>

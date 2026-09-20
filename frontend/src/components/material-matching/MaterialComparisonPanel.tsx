@@ -97,15 +97,15 @@ export const MaterialComparisonPanel: React.FC<MaterialComparisonPanelProps> = (
                   <div className="space-y-1">
                     <div className="flex justify-between py-1 border-b border-slate-100">
                       <span className="text-slate-500">Material / Type:</span>
-                      <span className="font-bold text-slate-800">{src.materialCategory || '—'}</span>
+                      <span className="font-bold text-slate-800">{src.materialCategory || '-'}</span>
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-100">
                       <span className="text-slate-500">Size / Dia:</span>
-                      <span className="font-bold text-slate-800">{src.size || '—'}</span>
+                      <span className="font-bold text-slate-800">{src.size || '-'}</span>
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-100">
                       <span className="text-slate-500">Grade / Metallurgy:</span>
-                      <span className="font-bold text-slate-800">{src.materialGrade || '—'}</span>
+                      <span className="font-bold text-slate-800">{src.materialGrade || '-'}</span>
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-100">
                       <span className="text-slate-500">Unit of Measure (UOM):</span>
@@ -113,15 +113,15 @@ export const MaterialComparisonPanel: React.FC<MaterialComparisonPanelProps> = (
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-100">
                       <span className="text-slate-500">Pressure Rating:</span>
-                      <span className="font-bold text-slate-800">{src.pressureRating || '—'}</span>
+                      <span className="font-bold text-slate-800">{src.pressureRating || '-'}</span>
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-100">
                       <span className="text-slate-500">Governing Standard:</span>
-                      <span className="font-bold text-slate-800">{src.standard || '—'}</span>
+                      <span className="font-bold text-slate-800">{src.standard || '-'}</span>
                     </div>
                     <div className="flex justify-between py-1">
                       <span className="text-slate-500">Specification:</span>
-                      <span className="font-bold text-slate-800 truncate max-w-[120px]">{src.specification || '—'}</span>
+                      <span className="font-bold text-slate-800 truncate max-w-[120px]">{src.specification || '-'}</span>
                     </div>
                   </div>
                 </div>

@@ -1,12 +1,16 @@
 /**
  * Main Application Shell Layout
  * BodhZ - SIH26099: AI-Driven Standardization and Harmonization of Material Codes Across CPSEs
+ * Compliant with MeitY Cyber Security Guidelines, GIGW 3.0 & IT Act 2000
  */
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AppHeader } from './AppHeader';
 import { AppSidebar } from './AppSidebar';
-import { DemoDisclaimerBanner } from './DemoDisclaimerBanner';
+import { GovSecurityBanner } from './GovSecurityBanner';
+import { GovFooter } from './GovFooter';
+import { GovSecurityModal } from '../security/GovSecurityModal';
+import { SessionTimeoutModal } from '../security/SessionTimeoutModal';
 import { GuidedDemoTour } from '../shared/GuidedDemoTour';
 
 interface AppLayoutProps {
@@ -34,7 +38,65 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   completedSteps,
   children,
 }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [securityModalOpen, setSecurityModalOpen] = useState(false);
+  const [timeoutModalOpen, setTimeoutModalOpen] = useState(false);
+
+  // MeitY-Mandated 15-Minute (900s) Sliding Inactivity Window
+  const [sessionSeconds, setSessionSeconds] = useState(895);
+
+  const resetSessionTimer = useCallback(() => {
+    // Only reset automatically if not currently showing the urgent 60s warning modal
+    if (!timeoutModalOpen) {
+      setSessionSeconds(900);
+    }
+  }, [timeoutModalOpen]);
+
+  // Track user activity to reset session sliding window
+  useEffect(() => {
+    const handleActivity = () => {
+      resetSessionTimer();
+    };
+
+    window.addEventListener('mousemove', handleActivity, { passive: true });
+    window.addEventListener('keydown', handleActivity, { passive: true });
+    window.addEventListener('touchstart', handleActivity, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleActivity);
+      window.removeEventListener('keydown', handleActivity);
+      window.removeEventListener('touchstart', handleActivity);
+    };
+  }, [resetSessionTimer]);
+
+  // 1-second countdown ticker
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSessionSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          if (onLogout) onLogout();
+          return 0;
+        }
+        if (prev <= 60 && !timeoutModalOpen) {
+          setTimeoutModalOpen(true);
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeoutModalOpen, onLogout]);
+
+  const handleExtendSession = () => {
+    setSessionSeconds(900);
+    setTimeoutModalOpen(false);
+  };
+
+  const handleTriggerInactivityTest = () => {
+    setSessionSeconds(45);
+    setTimeoutModalOpen(true);
+  };
 
   const handleNavigate = (page: string) => {
     onNavigate(page);
@@ -42,11 +104,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col text-slate-900 font-sans">
-      {/* Top CPSE Federation Status Bar */}
-      <DemoDisclaimerBanner onQuickLoadDemo={onQuickLoadDemo} />
+    <div className="min-h-screen bg-slate-100 flex flex-col text-slate-900 font-sans relative selection:bg-sky-200 selection:text-sky-900">
+      {/* Official Government Security & Federation Clearance Banner */}
+      <GovSecurityBanner
+        onOpenSecurityModal={() => setSecurityModalOpen(true)}
+        onQuickLoadDemo={onQuickLoadDemo}
+      />
 
-      {/* Main Header */}
+      {/* Main Government Portal Header */}
       <AppHeader
         onNavigate={handleNavigate}
         onSearch={onSearch}
@@ -55,13 +120,16 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         currentRole={currentUser?.role || 'Chief Materials Manager'}
         currentOrg={currentUser?.org || 'Inter-Ministerial Council / DPE'}
         onSwitchRole={onSwitchRole}
+        onOpenSecurityModal={() => setSecurityModalOpen(true)}
+        sessionSecondsRemaining={sessionSeconds}
+        onExtendSession={handleExtendSession}
       />
 
       {/* Mobile Navigation Toggle Bar */}
       <div className="md:hidden bg-[#071322] border-b border-slate-700 px-4 py-2 flex items-center justify-between text-xs font-mono text-slate-300">
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="flex items-center gap-2 px-2.5 py-1 bg-slate-800 border border-slate-600 rounded-sm text-slate-200"
+          className="flex items-center gap-2 px-2.5 py-1 bg-slate-800 border border-slate-600 rounded-xs text-slate-200"
           aria-label="Toggle Navigation Menu"
         >
           <span className="space-y-1">
@@ -136,13 +204,37 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           </div>
         )}
 
-        {/* Content Area */}
-        <main className="flex-1 overflow-y-auto bg-slate-50 min-h-[calc(100vh-6.5rem)]">
-          <div className="max-w-7xl mx-auto p-3 sm:p-6 lg:p-8">
+        {/* Content Area with Official Government Footer */}
+        <main className="flex-1 overflow-y-auto bg-slate-50 min-h-[calc(100vh-6.5rem)] flex flex-col">
+          <div className="max-w-7xl mx-auto p-3 sm:p-6 lg:p-8 flex-1 w-full">
             {children}
           </div>
+
+          {/* Official Government Footer */}
+          <GovFooter onOpenSecurityModal={() => setSecurityModalOpen(true)} />
         </main>
       </div>
+
+      {/* Prototype Build Tag */}
+      <div className="fixed bottom-2 right-2 z-20 pointer-events-none opacity-40 select-none font-mono text-[9px] text-slate-500 hidden xl:block">
+        SIH26099 PROTOTYPE // SAMAGRISETU v2.4
+      </div>
+
+      {/* Government Cyber Security & CERT-In Compliance Dossier Modal */}
+      <GovSecurityModal
+        isOpen={securityModalOpen}
+        onClose={() => setSecurityModalOpen(false)}
+        onTriggerInactivityTest={handleTriggerInactivityTest}
+        currentUser={currentUser}
+      />
+
+      {/* Mandatory Inactivity Lock Warning Modal */}
+      <SessionTimeoutModal
+        isOpen={timeoutModalOpen}
+        secondsRemaining={sessionSeconds}
+        onExtendSession={handleExtendSession}
+        onLogout={onLogout || (() => {})}
+      />
 
       {/* Interactive Guided Evaluation & Pitch Assistant */}
       <GuidedDemoTour

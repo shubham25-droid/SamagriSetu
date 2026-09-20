@@ -111,7 +111,7 @@ export function App() {
     MaterialMatchingService.runHarmonization();
     setActiveCpse('ALL');
     setCompletedSteps(['cpse-import', 'standardization', 'duplicate-detection', 'material-matching', 'national-master']);
-    alert('All 4 Verified CPSE Datasets (ONGC, IOCL, BHEL, SAIL — 400 Total Records) loaded into the Harmonization Pipeline.');
+    alert('All 4 Verified CPSE Datasets (ONGC, IOCL, BHEL, SAIL - 400 Total Records) loaded into the Harmonization Pipeline.');
     setCurrentPage('material-matching');
   };
 

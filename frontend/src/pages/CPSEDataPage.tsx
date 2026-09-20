@@ -216,22 +216,22 @@ export const CPSEDataPage: React.FC<CPSEDataPageProps> = ({ onNavigateToMatching
                       {r.uom}
                     </td>
                     <td className="py-2 px-3 text-slate-600 whitespace-nowrap">
-                      {r.materialCategory || '—'}
+                      {r.materialCategory || '-'}
                     </td>
                     <td className="py-2 px-3 text-slate-700 whitespace-nowrap">
-                      {r.size || '—'}
+                      {r.size || '-'}
                     </td>
                     <td className="py-2 px-3 text-slate-700 whitespace-nowrap">
-                      {r.materialGrade || '—'}
+                      {r.materialGrade || '-'}
                     </td>
                     <td className="py-2 px-3 text-slate-700 whitespace-nowrap">
-                      {r.pressureRating || '—'}
+                      {r.pressureRating || '-'}
                     </td>
                     <td className="py-2 px-3 text-slate-600 whitespace-nowrap">
-                      {r.standard || '—'}
+                      {r.standard || '-'}
                     </td>
                     <td className="py-2 px-3 text-slate-600 max-w-xs truncate" title={r.specification}>
-                      {r.specification || '—'}
+                      {r.specification || '-'}
                     </td>
                     <td className="py-2 px-3 text-right whitespace-nowrap">
                       <button

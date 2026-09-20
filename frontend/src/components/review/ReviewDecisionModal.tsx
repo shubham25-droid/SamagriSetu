@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Key, ShieldCheck } from 'lucide-react';
 import { MaterialMatchCandidate } from '../../types/MaterialMatchTypes';
 import { Modal } from '../shared/Modal';
 
@@ -158,6 +158,25 @@ export const ReviewDecisionModal: React.FC<ReviewDecisionModalProps> = ({
             </div>
           </div>
         )}
+
+        {/* Reviewer Governance Verification */}
+        <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono space-y-1">
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="flex items-center gap-1.5 font-bold text-slate-800">
+              <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
+              Reviewer Governance Verification
+            </span>
+            <span className="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 font-bold text-[10px]">
+              AUDIT RECORD ENABLED
+            </span>
+          </div>
+          <div className="text-[10px] text-slate-600">
+            Adjudicating Officer: <strong className="text-slate-800">Er. R. Sundaram (Chief Materials Manager)</strong>
+          </div>
+          <div className="text-[10px] text-slate-500">
+            Decision will be logged to the governance audit trail with timestamp and state snapshot.
+          </div>
+        </div>
 
         {errorMsg && (
           <p className="text-xs text-rose-600 font-semibold">{errorMsg}</p>
