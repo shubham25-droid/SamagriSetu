@@ -1,128 +1,143 @@
-# SamagriSetu
-
+# SamagriSetu (सामग्री सेतु)
 ### One Nation. One Common Material Code.
 
-SamagriSetu is an AI-assisted material master harmonization platform designed to address catalog fragmentation and inventory opacity across Indian Central Public Sector Enterprises (CPSEs). Developed around the Smart India Hackathon problem statement **SIH26099** (*Ministry of Petroleum & Natural Gas / Chennai Petroleum Corporation Limited*), the platform provides an automated and auditable mechanism to ingest, normalize, compare, and resolve disparate enterprise material records into a unified national taxonomy.
-
-In industrial operations, different CPSEs-such as upstream exploration, downstream refining, power generation, and heavy manufacturing-frequently procure identical mechanical equipment, valves, pipes, and electrical instruments. However, because each enterprise manages independent Enterprise Resource Planning (ERP) systems, the same physical item is cataloged under divergent CPSE material codes, inconsistent abbreviations, mixed units of measure (metric vs. imperial), and unstructured text strings. This lack of common material identity prevents centralized visibility, duplicates tender efforts, and inflates buffer inventories.
-
-SamagriSetu resolves this by extracting discrete technical attributes (such as equipment type, nominal dimensions, pressure ratings, metallurgy, and design standards) from unstructured descriptions, evaluating cross-enterprise candidates using multi-parameter similarity algorithms, and recommending a standardized **Common National Material Code (CNMC)**. Crucially, the platform operates on a non-destructive governance model: original CPSE material codes are permanently preserved for bi-directional traceability, and deterministic safety hard-locks flag engineering discrepancies for **human validation** before any canonical code is authorized.
-
----
-
-## Problem
-
-Central Public Sector Enterprises (CPSEs) operate critical national infrastructure across energy, steel, petrochemicals, and heavy industry. Over decades of independent operational history, each enterprise has established proprietary cataloging conventions within separate SAP ECC, SAP S/4HANA, or Oracle ERP installations. 
-
-This decentralized data management creates several systematic challenges:
-- **Disparate Material Codes**: An identical industrial component is cataloged under entirely unrelated alpha-numeric identifiers across different enterprises.
-- **Unstructured & Inconsistent Descriptions**: Free-text fields feature arbitrary abbreviations, differing word orders, and non-standard syntax (e.g., `GLOBE VALVE 2 IN CL.150 CS SW` vs. `GLB VLV 2" A216 WCB 150# SW`).
-- **Unit of Measure (UOM) Inconsistencies**: The same physical dimension is represented interchangeably in imperial and metric units (e.g., `2 INCH`, `2"`, `DN 50`, `50 MM NB`).
-- **Redundant Inventory & Procurement Fragmentation**: Independent procurement tenders are published for identical spares without volume aggregation or regional inter-plant stock sharing.
-- **Engineering Safety Hazards**: Pure keyword-based catalog merging risks conflating critical safety specifications, such as merging a Class 150 valve with a Class 300 valve or SS304 with SS316 metallurgy.
-- **Manual Harmonization Bottlenecks**: Manually cross-referencing hundreds of thousands of line items across enterprise silos is labor-prohibitive without automated attribute extraction and guided decision workflows.
+[![Smart India Hackathon](https://img.shields.io/badge/Smart%20India%20Hackathon-SIH26099-orange.svg?style=flat-square)](https://www.sih.gov.in/)
+[![Ministry](https://img.shields.io/badge/Ministry-Petroleum%20%26%20Natural%20Gas%20(MoPNG)-blue.svg?style=flat-square)](https://mopng.gov.in/)
+[![Organization](https://img.shields.io/badge/Organization-CPCL%20(Chennai%20Petroleum)-navy.svg?style=flat-square)](https://www.cpcl.co.in/)
+[![Category](https://img.shields.io/badge/Category-Software%20%7C%20Smart%20Automation-emerald.svg?style=flat-square)]()
+[![Platform](https://img.shields.io/badge/Platform-React%2019%20•%20TypeScript%20•%20FastAPI-purple.svg?style=flat-square)]()
 
 ---
 
-## Solution
+## Executive Summary
 
-SamagriSetu introduces a multi-tier harmonization architecture that standardizes public sector material masters while maintaining complete backward compatibility with native ERP systems.
+**SamagriSetu** is an AI-assisted material master harmonization and catalog governance platform developed for the **Smart India Hackathon** under problem statement **SIH26099** (*Ministry of Petroleum & Natural Gas / Chennai Petroleum Corporation Limited*).
 
-The platform executes a structured, transparent pipeline:
+India's Central Public Sector Enterprises (**CPSEs**) such as **ONGC, IOCL, BHEL, and SAIL** operate critical national infrastructure and procure billions of rupees worth of identical industrial spares annually (valves, pipes, flanges, electrical drives, and instrumentation). However, because each enterprise runs isolated SAP ECC, SAP S/4HANA, or Oracle ERP installations, identical physical items are cataloged under divergent CPSE material codes, non-standard abbreviations, mixed units of measure (metric vs. imperial), and unstructured text strings.
+
+This fragmentation creates:
+- **Redundant procurement tenders** across neighboring public sector plants.
+- **Inflated buffer inventories** due to zero cross-enterprise stock visibility.
+- **Lost volume bargaining power** under centralized frameworks like GeM (Government e-Marketplace).
+- **Engineering safety risks** when naive text matching conflates critical pressure or metallurgical ratings.
+
+**SamagriSetu resolves this systemic challenge** by decomposing unstructured descriptions into discrete engineering parameters, comparing cross-enterprise records using multi-parameter similarity heuristics, and recommending a standardized **Common National Material Code (CNMC)**.
+
+Operating on a **non-destructive federation model**, original CPSE ERP codes are permanently preserved for bi-directional traceability, and deterministic **Safety Hard-Locks** flag engineering discrepancies for human validation before any canonical code is authorized.
+
+---
+
+## SIH Problem Statement Details
+
+| Attribute | Specification |
+|---|---|
+| **Problem Statement ID** | **SIH26099** |
+| **Title** | AI-Driven Standardization and Harmonization of Material Codes Across CPSEs |
+| **Nodal Ministry** | Ministry of Petroleum & Natural Gas (MoPNG) |
+| **Nodal Enterprise** | Chennai Petroleum Corporation Limited (CPCL) |
+| **Theme / Category** | Smart Automation / Software |
+| **Governing Standard** | GFR 2017 & Public Procurement Guidelines |
+
+---
+
+## Key Capabilities & Highlights
+
+- **Multi-CPSE Catalog Ingestion**: Ingests enterprise exports from SAP and Oracle formats representing upstream exploration (ONGC), downstream refining (IOCL/CPCL), heavy electricals (BHEL), and steel production (SAIL).
+- **Domain-Calibrated Attribute Extraction**: Decomposes free-text short descriptions into canonical technical parameters: component type, nominal bore (metric/imperial), pressure rating, metallurgy, end connection, and governing standard (ASME/API/ASTM/IS).
+- **Deterministic Safety Hard-Locks**: Automatically blocks automated merging when critical parameters conflict (e.g., Class 150 vs. Class 300, or SS304 vs. SS316 corrosion limits), routing items to engineering review.
+- **Common National Material Code (CNMC)**: Generates structured, unique canonical identifiers (`CNMC-XXXXXX`) representing uniform equipment identities across India.
+- **Bi-Directional Legacy Traceability**: Preserves 100% of original CPSE enterprise codes (`ONGC-0001`, `IOCL-0001`, etc.) mapped to the assigned national code without disrupting local ERP operations.
+- **Human-in-the-Loop Governance Console**: Chief Material Master Reviewers inspect side-by-side attribute matrices, verify evidence, and approve, reject, or modify standardized records with cryptographic audit logging.
+- **Interactive 3D Convergence Topology**: Real-time WebGL/Three.js simulation visually demonstrating disparate enterprise streams converging into the harmonized national core.
+- **Dual Persona Workstation**: Role-based access simulation for **Chief Material Master Reviewer** (approval authority) and **CPSE Enterprise Nodal Officers** (ingestion and plant duplicate resolution).
+
+---
+
+## System Architecture
+
 ```text
-CPSE Material Data (CSV / ERP Export)
-        ↓
-Data Ingestion & Normalization
-        ↓
-Technical Attribute Extraction
-        ↓
-Material Matching & Similarity Scoring
-        ↓
-Specification Conflict Detection (Safety Hard-Locks)
-        ↓
-Standardization & Taxonomy Classification
-        ↓
-Human Review & Authorization (Chief Material Master Reviewer)
-        ↓
-Common National Material Code (CNMC) Assignment
-        ↓
-National Material Master Registration
-        ↓
-CPSE Legacy Code Mapping & Immutable Audit Trail
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 PRESENTATION LAYER                                      │
+│     React 19 • TypeScript • Tailwind CSS v4 • Lucide Icons • Three.js 3D Visualizer     │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                 WORKFLOW PAGES (21)                                     │
+│  LandingPage           • DashboardPage           • CPSEDataImportPage                   │
+│  StandardizationPage   • DuplicateDetectionPage  • MaterialMatchingPage                 │
+│  NationalMasterPage    • MaterialReviewPage      • AuditTrailPage                       │
+│  MaterialSearchPage    • LegacyMappingPage       • AnalyticsPage                        │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                  SERVICE LAYER (TS)                                     │
+│  CPSEDataImportService : Ingestion, CSV parsing, auto-extraction, schema checks        │
+│  MaterialMatchingService: Scoring, NLP token matching, safety hard-lock enforcement     │
+│  NationalMaterialService: CNMC generation, 1-to-many lineage, LocalStorage persistence  │
+│  AuditTrailService     : Tamper-evident chronological governance event ledger           │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                             FASTAPI BACKEND REST SERVICE                                │
+│  /api/harmonize/parse-attributes : Extracts discrete engineering parameters             │
+│  /api/harmonize/evaluate-pair    : Cross-record concordance & safety interceptor        │
+│  /api/catalogs/summary           : Enterprise catalog metadata for ONGC, IOCL, BHEL... │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                 BENCHMARK DATASETS                                      │
+│  400 Verified Records across ONGC.csv, IOCL.csv, BHEL.csv, SAIL.csv                     │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-The system is designed as an executive decision-support system: automated algorithms perform the extraction, parsing, and scoring, while designated engineering reviewers retain final sign-off authority.
-
 ---
 
-## Core Workflow
-
-The operational flow from raw enterprise data intake to certified canonical master registration is illustrated below:
+## The 7-Stage Harmonization Workflow
 
 ```mermaid
 flowchart TD
-    A[CPSE Material Data] --> B[Ingestion & Normalization]
-    B --> C[Technical Attribute Extraction]
-    C --> D[Material Matching Engine]
-    D --> E[Specification Conflict Detection]
-    E --> F[Standardization & Classification]
-    F --> G[Human Review & Approval]
-    G --> H[Common National Material Code]
-    H --> I[National Material Master]
-    I --> J[CPSE Mapping & Audit Trail]
+    A[1. CPSE Ingestion<br/>CSV / SAP / Oracle Export] --> B[2. Normalization<br/>Unit & Abbreviation Expansion]
+    B --> C[3. Parameter Extraction<br/>Size, Metallurgy, Class, Standard]
+    C --> D[4. Duplicate Detection<br/>Intra-Plant Redundancies]
+    D --> E[5. Similarity Matching Engine<br/>Token & Attribute Concordance]
+    E --> F{6. Safety Hard-Lock Check<br/>Pressure / Metallurgy Divergence?}
+    F -- Conflict Found --> G[Safety Hold & Routing<br/>Mandatory Engineering Review]
+    F -- Concordance Verified --> H[Human-in-the-Loop Sign-off<br/>Chief Material Master Reviewer]
+    G --> H
+    H --> I[7. Common National Material Code<br/>CNMC-XXXXXX Registration]
+    I --> J[National Master & GeM Registry<br/>Bi-directional Legacy ERP Mapping]
 ```
 
 ---
 
-## Key Capabilities
+## Safety Hard-Lock Interception Matrix
 
-- **Multi-CPSE Catalog Ingestion**: Ingests structured and semi-structured material records from enterprise CSV exports representing multiple industrial entities (ONGC, IOCL, BHEL, SAIL).
-- **Automated Text Normalization**: Standardizes abbreviations, removes formatting noise, normalizes dimensional units (e.g., `50MM` → `2" (DN50)`), and canonicalizes equipment descriptions.
-- **Deterministic Attribute Extraction**: Extracts discrete engineering parameters, including component type, nominal size, pressure rating, body metallurgy, end connections, and standard specifications (ASME/ASTM/API).
-- **Multi-Parameter Material Matching**: Calculates composite similarity scores based on attribute alignment, fuzzy text match, and token-level taxonomy analysis.
-- **Safety Hard-Lock Interception**: Automatically blocks automated merging when critical engineering parameters conflict (e.g., Class 150 vs. Class 300, or Carbon Steel vs. Stainless Steel).
-- **Canonical CNMC Generation**: Generates structured, unique Common National Material Codes (`CNMC-XXXXXX`) representing canonical equipment identities.
-- **Bi-Directional Legacy Traceability**: Maintains persistent 1-to-many cross-reference tables mapping native CPSE enterprise codes to assigned national codes.
-- **Human-in-the-Loop Review Console**: Provides an interactive adjudication interface for Chief Reviewers to inspect match evidence, compare attribute matrices, and approve, reject, or defer harmonization.
-- **National Master Explorer**: Searchable, filterable repository of approved national materials with full lineage inspection and CPSE coverage indicators.
-- **Governance Audit Trail**: Chronological, tamper-evident logging of all system events, upload batches, matching runs, and reviewer decisions.
-- **Interactive 3D Topology Visualization**: Real-time WebGL/Three.js visual simulation demonstrating the flow of disparate enterprise streams converging into the harmonized national core.
+In petrochemical and power installations, physical compatibility is constrained by thermodynamics, pressure tolerances, and metallurgy. SamagriSetu implements deterministic **Safety Hard-Locks** that intercept conflicts regardless of text similarity:
+
+| Conflict Scenario | Example Divergence | Text Similarity | System Action |
+|---|---|:---:|---|
+| **Pressure Rating Mismatch** | ASME Class 150 vs. ASME Class 300 | ~92% | **HARD-LOCK**: Auto-merge blocked; routed to Safety Hold queue. |
+| **Metallurgical Divergence** | Stainless Steel 304 vs. Stainless Steel 316 | ~94% | **HARD-LOCK**: Blocked due to acid/corrosion resistance disparity. |
+| **Dimensional Schedule** | Schedule 40 vs. Schedule 80 | ~89% | **HARD-LOCK**: Blocked due to internal diameter and burst pressure variance. |
+| **Span / Range Mismatch** | Transmitter 0–25 Bar vs. 0–100 Bar | ~91% | **HARD-LOCK**: Blocked due to calibration and resolution mismatch. |
+| **Gasket Sealing Material** | EPDM Rubber vs. Flexible Graphite | ~86% | **HARD-LOCK**: Blocked due to temperature boundary failure. |
 
 ---
 
-## Architecture
+## Example Harmonization
 
-### Current Implementation
-The current repository is implemented as a high-performance, single-runtime TypeScript platform running in the browser using React 19 and Vite. The business logic, parsing engines, matching heuristics, and data models are implemented as modular TypeScript services:
+### Input Records from 4 CPSEs
+- **CPSE A (ONGC)**: `GLOBE VALVE 2 IN CARBON STEEL CL.150 SW` (Code: `ONGC-0001`)
+- **CPSE B (IOCL)**: `GLOBE VALVE 2 IN CL.150 CARBON STEEL SW` (Code: `IOCL-0001`)
+- **CPSE C (BHEL)**: `GLB VLV 2" A216 WCB 150# SW` (Code: `BHEL-0001`)
+- **CPSE D (SAIL)**: `GLOBE VALVE DN50 CS CL150 SW` (Code: `SAIL-0001`)
 
-```text
-┌────────────────────────────────────────────────────────────────────────┐
-│                          PRESENTATION LAYER                            │
-│  React 19 • Tailwind CSS v4 • Lucide Icons • Three.js 3D Topology       │
-├────────────────────────────────────────────────────────────────────────┤
-│                           PAGE CONTROLLERS                             │
-│  LandingPage • DashboardPage • MaterialReviewPage • CPSEDataPage       │
-│  MaterialMatchingPage • DuplicateDetectionPage • AuditTrailPage        │
-├────────────────────────────────────────────────────────────────────────┤
-│                          SERVICE LAYER (TS)                            │
-│  CPSEDataImportService  │ Ingestion, CSV parsing, schema validation    │
-│  MaterialMatchingService│ Scoring, attribute extraction, safety locks │
-│  NationalMaterialService│ CNMC generation, lineage registry, storage   │
-│  AuditTrailService      │ Chronological governance event logging       │
-│  DataSourceService      │ Ingestion simulation and channel management  │
-├────────────────────────────────────────────────────────────────────────┤
-│                         DATA & PERSISTENCE                             │
-│  Demonstration Datasets │ ONGC.csv, IOCL.csv, BHEL.csv, SAIL.csv       │
-│  State & Persistence   │ In-Memory Reactive Stores & LocalStorage Sync │
-└────────────────────────────────────────────────────────────────────────┘
-```
+### Extraction & Normalization
+- **Component Type**: `Globe Valve` (100% concordance)
+- **Nominal Size**: `2 Inch (DN 50)` — normalized across `2 IN`, `2"`, `DN50`
+- **Pressure Class**: `ASME Class 150` — normalized across `CL.150`, `150#`, `CL150`
+- **Metallurgy**: `Carbon Steel (ASTM A216 WCB)` — expanded from `CS`, `WCB`
+- **End Connection**: `Socket Weld (SW)`
+- **Governing Standard**: `ASME B16.34`
 
-### Integration-Ready / Future Architecture
-For full production deployment within a national data center or cloud environment, the following extensions represent planned architecture:
-- **Enterprise ERP Connectors**: Direct read-only connectors for SAP S/4HANA (OData/BAPI), SAP ECC 6.0 (RFC), and Oracle EBS (MTL_SYSTEM_ITEMS) to pull incremental catalog updates.
-- **Central Relational & Vector Storage**: Scaled PostgreSQL backend with `pgvector` for semantic embedding storage and distributed indexing across millions of line items.
-- **GeM (Government e-Marketplace) Federation**: Two-way API integration publishing approved CNMCs directly to GeM category managers for tender aggregation.
-- **Automated CPSE Synchronization Gateway**: Scheduled synchronization webhooks returning canonical CNMC mappings back into native CPSE ERP material master tables (e.g., populating custom field `MARA-CNMC`).
+### Outcome
+1. Composite Similarity Score: **98.5%**.
+2. Zero engineering hard-lock violations detected.
+3. Assigned Canonical Code: **`CNMC-000001`**.
+4. Standardized Description: `Globe Valve, 2 Inch (DN 50), Carbon Steel, ASME Class 150, Socket Weld (SW), ASME B16.34`.
+5. Permanent bi-directional mappings created for `ONGC-0001`, `IOCL-0001`, `BHEL-0001`, and `SAIL-0001`.
 
 ---
 
@@ -130,17 +145,16 @@ For full production deployment within a national data center or cloud environmen
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| **Backend API** | FastAPI (`fastapi` v0.110+) | Enterprise REST API serving parameter parsing, catalog endpoints, and safety checks |
-| **Backend Runtime** | Python 3.10+ / Uvicorn | High-concurrency ASGI web server for backend services |
-| **Data Validation** | Pydantic v2.6+ | Strict attribute schemas, CNMC records, and match candidate contracts |
-| **Data Processing** | Pandas v2.2+ | Ingestion and tabular processing of enterprise CSV catalogs |
-| **Frontend Framework** | React 19 (`react`, `react-dom` v19.2.8) | Declarative component UI and application state orchestration |
-| **Language & Tooling** | TypeScript (`typescript` v6.0.2) | Type-safe domain models, service contracts, and strict interface validation |
-| **Build & Bundler** | Vite (`vite` v8.3.0) | High-speed ESM development server and optimized production packaging |
-| **CSS & Design System** | Tailwind CSS v4 (`@tailwindcss/vite` v4.3.3) | GovTech institutional styling, high-contrast layouts, and responsive design |
-| **Visualization & 3D** | Three.js (`three` v0.186.0) | WebGL-based interactive 3D harmonization topology visualizer |
-| **Icons & Micro-UI** | Lucide React (`lucide-react` v1.47.0) | Clean, accessible iconography across navigation and data tables |
-| **Code Quality / Linter**| Oxlint (`oxlint` v1.81.0) | High-performance Rust-based static code analysis and lint verification |
+| **Frontend Framework** | React 19 (`react`, `react-dom` v19.2) | Declarative component UI and application state orchestration |
+| **Language & Tooling** | TypeScript (`typescript` v6.0) | Strict type contracts, domain models, and service interfaces |
+| **Build & Bundler** | Vite (`vite` v8.3) | High-speed ESM development server and production packaging |
+| **CSS & Design System** | Tailwind CSS v4 (`@tailwindcss/vite`) | Institutional GovTech styling, responsive layouts, high contrast |
+| **Visualization & 3D** | Three.js (`three` v0.186) | WebGL 3D harmonization topology convergence visualizer |
+| **Icons** | Lucide React (`lucide-react`) | Standardized iconography across navigation and data tables |
+| **Backend API** | FastAPI (`fastapi` v0.110+) | Enterprise REST API for parameter parsing and conflict detection |
+| **Backend Runtime** | Python 3.10+ / Uvicorn | High-concurrency ASGI web server |
+| **Data Validation** | Pydantic v2.6+ | Strict schemas for material records, attributes, and candidates |
+| **Data Processing** | Pandas v2.2+ | Tabular ingestion and filtering of enterprise CSV catalogs |
 
 ---
 
@@ -148,275 +162,126 @@ For full production deployment within a national data center or cloud environmen
 
 ```text
 SamagriSetu/
-├── backend/                              # Python / FastAPI enterprise backend service
-│   ├── data/                             # Prototype demonstration CSV catalogs (ONGC, IOCL, BHEL, SAIL)
-│   ├── models/                           # Pydantic schemas (MaterialAttributes, CNMCRecord, MatchEvidence)
-│   ├── routers/                          # API route handlers (/api/harmonize, /api/catalogs)
-│   ├── services/                         # Attribute extraction parser & safety hard-lock interceptor
-│   ├── main.py                           # FastAPI application entry point
-│   ├── README.md                         # Backend setup instructions & API reference
-│   └── requirements.txt                  # Python dependencies
+├── backend/                              # Python / FastAPI REST backend
+│   ├── data/                             # 4 benchmark CSV catalogs (ONGC, IOCL, BHEL, SAIL)
+│   ├── models/schemas.py                 # Pydantic schemas (MaterialAttributes, CNMCRecord...)
+│   ├── routers/                          # API endpoints (/api/harmonize, /api/catalogs)
+│   ├── services/                         # Attribute extraction parser & safety interceptor
+│   ├── scripts/parseCSVs.js              # Pipeline script compiling CSV data
+│   ├── requirements.txt                  # Python dependencies
+│   └── main.py                           # FastAPI application entry point
+│
 ├── frontend/                             # React 19 + TypeScript + Vite web platform
-│   ├── docs/                             # Architecture & workflow documentation
-│   ├── public/                           # Static assets, platform emblem, industrial photography
+│   ├── public/                           # Logos, national emblems, photography
 │   ├── src/
-│   │   ├── components/                   # Modular UI components (dashboard, review, topology)
-│   │   ├── data/                         # Compiled demonstration catalogs & match candidates
-│   │   ├── pages/                        # 19 dedicated workflow pages & route views
-│   │   ├── services/                     # Client-side state & harmonization engine
-│   │   ├── types/                        # Strict domain type contracts
-│   │   ├── App.tsx                       # Master routing & persona handler
+│   │   ├── components/                   # Reusable UI modules (matching, review, layout)
+│   │   ├── data/                         # Pre-compiled benchmark datasets (400 records)
+│   │   ├── pages/                        # 21 dedicated workflow & governance pages
+│   │   ├── services/                     # State management, matching engine, & audit trail
+│   │   ├── types/                        # Strict domain type definitions
+│   │   ├── App.tsx                       # Master routing & persona orchestrator
 │   │   ├── index.css                     # Tailwind CSS v4 design system
-│   │   └── main.tsx                      # Application bootstrap entry point
-│   ├── package.json                      # Frontend dependencies & build scripts
+│   │   └── main.tsx                      # Application bootstrap
+│   ├── package.json                      # Frontend dependencies & scripts
 │   ├── tsconfig.json                     # TypeScript compiler configuration
-│   └── vite.config.ts                    # Vite build configuration
-├── .gitignore                            # Security & build ignore rules
-├── package.json                          # Root workspace runner
-└── README.md                             # Enterprise project documentation
+│   └── vite.config.ts                    # Vite bundler configuration
+│
+├── package.json                          # Root repository runner
+└── README.md                             # Central project documentation
 ```
 
 ---
 
-## Demonstration Data
-
-This repository includes demonstration datasets located in `data/` and `public/data/`:
-- `ONGC.csv`: 100 sample records representing upstream exploration and offshore drilling equipment.
-- `IOCL.csv`: 100 sample records representing downstream refining, petrochemicals, and pipelines.
-- `BHEL.csv`: 100 sample records representing heavy electrical machinery, power boilers, and turbines.
-- `SAIL.csv`: 100 sample records representing integrated steel production, alloys, and structural elements.
-
-> **Important Notice on Data Provenance:**  
-> The datasets included in this repository are curated synthetic and sanitized records used strictly for prototype benchmarking, algorithm verification, and demonstration purposes. They illustrate realistic CPSE cataloging patterns (such as SAP short-texts and standard industry abbreviations) and should not be interpreted as classified or proprietary enterprise master data.
-
----
-
-## Example Harmonization
-
-The following technical scenario illustrates how SamagriSetu ingests three divergent enterprise line items, normalizes their syntax, extracts engineering attributes, and resolves them into a single canonical record:
-
-### Raw Enterprise Input Records
-- **CPSE A (ONGC)**: `GLOBE VALVE 2 IN CARBON STEEL CL.150 SW` (Code: `ONGC-000001`)
-- **CPSE B (IOCL)**: `GLOBE VALVE 2 IN CL.150 CARBON STEEL SW` (Code: `IOCL-000001`)
-- **CPSE C (BHEL)**: `GLB VLV 2" A216 WCB 150# SW` (Code: `BHEL-000001`)
-- **CPSE D (SAIL)**: `GLOBE VALVE DN50 CS CL150 SW` (Code: `SAIL-000001`)
-
-### Normalization Process
-- **Abbreviation Expansion**: `GLB VLV` → `GLOBE VALVE`, `CS` / `WCB` → `CARBON STEEL (ASTM A216 WCB)`
-- **Dimension Unification**: `2 IN`, `2"`, `DN50` → `2 INCH (DN 50)`
-- **Rating Standardization**: `150#`, `CL.150`, `CL150` → `ASME CLASS 150`
-- **End Connection Standardization**: `SW` → `SOCKET WELD`
-
-### Extracted Technical Attribute Matrix
-
-| Parameter | Standardized Value | Match Concordance |
-|---|---|:---:|
-| **Component Type** | Globe Valve | 100% |
-| **Nominal Size** | 2 Inch (DN 50) | 100% |
-| **Pressure Class** | ASME Class 150 | 100% |
-| **Body Metallurgy** | Carbon Steel (ASTM A216 WCB) | 100% |
-| **End Connection** | Socket Weld (SW) | 100% |
-| **Design Standard** | ASME B16.34 | 100% |
-
-### Outcome
-1. Composite Similarity Score calculated at **98.5%**.
-2. No engineering hard-lock violations detected.
-3. Recommended Canonical Identifier: **`CNMC-000001`**.
-4. Standardized Description: `GLOBE VALVE, 2 INCH (DN 50), CARBON STEEL (ASTM A216 WCB), ASME CLASS 150, SOCKET WELD (SW), ASME B16.34`.
-5. Original CPSE codes (`ONGC-000001`, `IOCL-000001`, `BHEL-000001`, `SAIL-000001`) remain permanently mapped to `CNMC-000001`.
-
----
-
-## Specification Conflict Handling
-
-In industrial and petrochemical installations, physical compatibility is strictly constrained by thermodynamics, pressure tolerances, and metallurgy. Merging catalogs based purely on lexical proximity without specification verification introduces catastrophic operational risks.
-
-SamagriSetu implements deterministic **Safety Hard-Locks** that intercept conflicts regardless of text similarity:
-
-| Conflict Type | Example Divergence | Text Similarity | Hard-Lock Action |
-|---|---|:---:|---|
-| **Pressure Rating Mismatch** | ASME Class 150 vs. ASME Class 300 | 92% | **STRICT BLOCK** (`REQUIRES REVIEW` / `KEEP SEPARATE`) |
-| **Metallurgical Incompatibility** | Stainless Steel 304 vs. Stainless Steel 316 | 94% | **STRICT BLOCK** (Corrosion boundary variance) |
-| **Dimensional Schedule Mismatch** | Schedule 40 vs. Schedule 80 | 89% | **STRICT BLOCK** (Wall thickness & ID divergence) |
-| **Gasket Sealing Material** | EPDM Rubber vs. Flexible Graphite | 86% | **STRICT BLOCK** (Temperature tolerance failure) |
-
-When an engineering hard-lock is triggered:
-1. Automated merging is unconditionally disabled.
-2. The match candidate is flagged with an amber/red discrepancy badge.
-3. The conflict is logged into the audit trail with the specific technical attribute disparity identified.
-4. The record is routed directly to the Chief Reviewer's adjudication queue.
-
----
-
-## Human-in-the-Loop Review
-
-SamagriSetu operates on the principle that artificial intelligence should augment, rather than replace, certified engineering judgment.
-
-The **Human-in-the-Loop** governance workflow provides:
-- **Decision Console**: Chief Material Master Reviewers are presented with side-by-side attribute comparisons, highlighted parameter variances, and match evidence summaries.
-- **Explicit Action Outcomes**:
-  - **Approve**: Confirms equivalence and assigns or maps to a Common National Material Code.
-  - **Reject**: Confirms that items are technically distinct; enforces separate identity creation.
-  - **Defer / Request Information**: Routes catalog items back to the originating CPSE nodal officer for field verification.
-- **Traceable Decision Record**: The identity, timestamp, and rationale of the reviewer are cryptographically recorded in the chronological audit log.
-
----
-
-## Traceability
-
-A foundational requirement of national harmonization is non-destructive federation. SamagriSetu preserves existing enterprise ERP investments by maintaining persistent bi-directional linkages:
-
-```text
-┌────────────────────────────────────────────────────────┐
-│              COMMON NATIONAL MATERIAL CODE             │
-│                      CNMC-000001                       │
-│    GLOBE VALVE, 2 IN, CS, CL 150, SW, ASME B16.34      │
-└───────────┬──────────────┬──────────────┬──────────────┘
-            │              │              │
-            ▼              ▼              ▼
-     ┌─────────────┐┌─────────────┐┌─────────────┐
-     │  ONGC CODE  ││  IOCL CODE  ││  BHEL CODE  │
-     │ ONGC-000001 ││ IOCL-000001 ││ BHEL-000001 │
-     └─────────────┘└─────────────┘└─────────────┘
-```
-
-- Local plant operations continue utilizing native ERP part numbers without disruption.
-- Corporate, inter-ministerial, and GeM procurement queries resolve through the CNMC umbrella to view aggregated availability across all federated plants.
-- Lineage records record the exact timestamp, source CPSE catalog, and original raw string for every mapped item.
-
----
-
-## Current Implementation Status
-
-### Implemented
-- Complete interactive web platform with 19 functional pages and executive landing portal.
-- Ingestion engine parsing multi-CPSE CSV catalog exports.
-- Automated attribute extraction and normalization algorithms.
-- Multi-parameter similarity scoring engine with deterministic safety hard-locks.
-- Chief Reviewer adjudication queue with real-time approval/rejection state transitions.
-- Canonical Common National Material Code (CNMC) generation and LocalStorage persistence.
-- Bi-directional 1-to-many legacy mapping explorer.
-- Chronological governance audit trail logging system events.
-- Interactive Three.js / WebGL 3D harmonization topology simulation.
-- 1-click persona switcher (CPSE Enterprise Nodal Officer vs. Chief Material Master Reviewer).
-
-### Prototype / Demonstration
-- Curated 400-record benchmark catalog representing ONGC, IOCL, BHEL, and SAIL.
-- In-browser simulated data stream channels for testing live catalog feeds.
-- Pre-computed engineering match candidates illustrating key evaluation scenarios.
-
-### Planned / Integration-Ready
-- Native SAP S/4HANA OData and SAP ECC 6.0 RFC enterprise connectors.
-- Multi-node PostgreSQL database deployment with pgvector semantic similarity search.
-- Official GeM API gateway for automated tender item standardization.
-- Real-time enterprise ERP write-back interfaces.
-
----
-
-## Getting Started
+## How to Run Locally
 
 ### Prerequisites
-- **Node.js**: Version 18.x or higher (tested on Node.js v24.x)
-- **Package Manager**: `npm` (included with Node.js)
+- **Node.js** (v18 or higher) — [nodejs.org](https://nodejs.org/)
+- **Python** (v3.10 or higher) — [python.org](https://www.python.org/)
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/shubham25-droid/SamagriSetu.git
-   cd SamagriSetu
-   ```
+---
 
-2. Install project dependencies:
-   ```bash
-   npm install
-   ```
+### Step 1: Run the Frontend (UI & Interactive Workstation)
 
-### Running the Application
-Start the local development server:
-```bash
+```powershell
+# 1. Navigate to the frontend directory
+cd frontend
+
+# 2. Install dependencies (first time only)
+npm install
+
+# 3. Start the development server
 npm run dev
 ```
-Open your browser and navigate to `http://localhost:5173/` to access the platform.
 
-### Building for Production
-To verify TypeScript types and generate the optimized production distribution:
-```bash
-npm run build
+Open your browser and navigate to:
+👉 **`http://localhost:5173`**
+
+*(Or from the repository root, run `npm run dev` once dependencies are installed).*
+
+---
+
+### Step 2: Run the FastAPI Backend API (Optional / Full-Stack)
+
+Open a second terminal window:
+
+```powershell
+# 1. From repository root, install Python requirements
+pip install -r backend/requirements.txt
+
+# 2. Start the Uvicorn server
+uvicorn backend.main:app --reload --port 8000
 ```
-The compiled output is emitted to the `dist/` directory.
 
-### Code Quality & Linting
-Run static code analysis using Oxlint:
-```bash
-npm run lint
-```
+Verify backend services:
+- **API Healthcheck**: [`http://localhost:8000/health`](http://localhost:8000/health)
+- **Interactive Swagger Docs**: [`http://localhost:8000/docs`](http://localhost:8000/docs)
 
 ---
 
-## Environment Variables
+## How to Deploy Online
 
-This prototype platform runs entirely client-side using self-contained TypeScript services and local storage.
+### Deploy Frontend to Vercel (Fastest & Free — 2 Minutes)
+1. Push this repository to **GitHub**.
+2. Go to **[vercel.com](https://vercel.com/)** and import your repository.
+3. Configure the project settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `frontend`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. Click **Deploy**. Within 60 seconds, you will receive a public live URL.
 
-- **No external `.env` file is required** to run the demonstration.
-- **No private API keys, passwords, or cloud database credentials** are necessary.
-- Security rules in `.gitignore` ensure that any local `.env` or certificate files created during development are strictly excluded from version control.
-
----
-
-## Usage
-
-A standard evaluation walkthrough involves the following steps:
-
-1. **Access the Portal**: Open `http://localhost:5173/` to view the SamagriSetu Landing Page and 3D Harmonization Topology.
-2. **Select Persona**:
-   - Click **`1. CPSE Officer`** to access the enterprise ingestion workstation.
-   - Click **`2. Central Reviewer`** to access the Chief Material Master Reviewer console.
-3. **Explore CPSE Catalogs**: Navigate to **CPSE Catalogs** (`#participating-cpses`) or click **Inspect CPSE Master** to review 400 benchmark records across ONGC, IOCL, BHEL, and SAIL.
-4. **Ingest New Catalog Data**: Go to **Catalog Ingestion**, upload a plant CSV file (or use sample records), and review automated parameter parsing.
-5. **Run Specification Matching**: Navigate to **Matching Console** to inspect match candidates, examine the attribute matrix, and review safety hard-lock flags.
-6. **Execute Human Review**: Navigate to **Review Workstation**, select a pending candidate, inspect evidence, and click **Approve Harmonization** to issue a canonical CNMC.
-7. **Inspect National Master**: Open **National Master** to verify the newly registered Common National Material Code and confirm bi-directional legacy mapping to source CPSE codes.
-8. **Verify Audit Trail**: Open **Audit Trail** to view the chronological, immutable record of ingestion, matching, and approval events.
+### Deploy Frontend to Netlify (Drag & Drop — 30 Seconds)
+1. Run `npm --prefix frontend run build` to generate `frontend/dist`.
+2. Visit **[app.netlify.com/drop](https://app.netlify.com/drop)**.
+3. Drag and drop the `frontend/dist` folder into the upload box for an instant live site.
 
 ---
 
-## Screenshots
+## Evaluation Walkthrough Guide (For Hackathon Judges)
 
-Interface walkthroughs and interactive components can be inspected directly via the running web portal:
-- **Platform Emblem & Branding**: `public/samagrisetu-logo.png`
-- **Interactive 3D Harmonization Flow**: Available on the landing page (`#topology-3d`)
-- **Real-Time Dashboards & Consoles**: Available via local execution (`npm run dev`)
-
----
-
-## Research / Problem Context
-
-SamagriSetu was conceived and engineered specifically to address Problem Statement **SIH26099** in the Smart India Hackathon:
-> *"AI-Driven Standardization and Harmonization of Material Codes Across CPSEs"*  
-> **Nodal Ministry**: Ministry of Petroleum & Natural Gas  
-> **Nodal Organization**: Chennai Petroleum Corporation Limited (CPCL)  
-> **Theme**: Smart Automation | **Category**: Software
-
-The project demonstrates how domain-calibrated deterministic algorithms, combined with structured technical attribute decomposition and human-in-the-loop oversight, solve the decades-old challenge of enterprise master data fragmentation across India's public sector ecosystem.
+1. **Platform Entrance**: Open the web application at `http://localhost:5173/`. Experience the **3D Harmonization Topology** visualizer showing the convergence of CPSE catalogs.
+2. **Quick Demo Load**: Click the **"Quick Load Demo (400 Items)"** button in the top navigation bar to populate all 4 CPSE catalogs (ONGC, IOCL, BHEL, SAIL).
+3. **Step 1 — Catalog Ingestion**: Visit **CPSE Data Ingestion** to see enterprise batch statistics and upload custom plant CSVs.
+4. **Step 2 — Standardization**: Navigate to **Standardization** to inspect abbreviation expansion (e.g. `VLV` → `Valve`) and metric-to-imperial unit conversions.
+5. **Step 3 — Duplicate Detection**: Open **Duplicate Detection** to view internal plant redundancy identification (e.g. thickness variance like 5mm vs 6mm).
+6. **Step 4 — Material Matching & Safety Lock**: Visit **Material Matching** to inspect the side-by-side attribute matrix. Click on **Scenario 3 (Pressure Transmitter)** to see the **Safety Hard-Lock** block auto-merging on a 0–25 Bar vs 0–100 Bar disparity.
+7. **Step 5 — Human Review & Approval**: In the **Review Workstation**, act as the Chief Material Master Reviewer to approve or reject recommendations.
+8. **Step 6 — Canonical Registry & Traceability**: Open **National Material Master** to verify the registered `CNMC-XXXXXX` code and examine 1-to-many legacy CPSE ERP traceability.
+9. **Step 7 — Governance Audit Ledger**: View the **Audit Trail** to see chronological, tamper-evident logs of every upload, match, conflict, and review decision.
 
 ---
 
-## Team
+## Team & Hackathon Attribution
 
-**SamagriSetu Team**  
-*Team BodhZ - Smart India Hackathon 2026*  
-Problem Statement: SIH26099
+- **Hackathon**: Smart India Hackathon (SIH)
+- **Problem Statement**: **SIH26099**
+- **Nodal Ministry**: Ministry of Petroleum & Natural Gas (MoPNG)
+- **Nodal Agency**: Chennai Petroleum Corporation Limited (CPCL)
+- **Team**: Team BodhZ
+- **Platform**: SamagriSetu (*One Nation. One Common Material Code.*)
 
 ---
 
-## Copyright & Proprietary Notice
+## License & Proprietary Notice
 
-© 2026 SamagriSetu Team. All Rights Reserved.
-
-SamagriSetu, its source code, architecture, interface designs, documentation, and original project materials are proprietary to the SamagriSetu Team.
-
-This repository is intended for authorized development, evaluation, and demonstration purposes only.
-
-No permission is granted to copy, reproduce, modify, distribute, publish, repurpose, or create derivative works from this project or its source code without prior written permission from the copyright holders.
-
-SamagriSetu is a project developed for Smart India Hackathon 2026.
+© 2026 SamagriSetu Team. All Rights Reserved. Developed for Smart India Hackathon (SIH26099).
