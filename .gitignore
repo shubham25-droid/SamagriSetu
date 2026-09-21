@@ -28,6 +28,12 @@ dist-ssr
 .env.*
 !.env.example
 *.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
 *.key
 *.cert
 

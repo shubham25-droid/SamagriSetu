@@ -1,14 +1,30 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from fastapi import APIRouter, HTTPException
 from typing import List
-from ..models.schemas import (
-    RawMaterialRecord,
-    MatchCandidate,
-    MatchEvidence,
-    CNMCRecord,
-    MaterialAttributes
-)
-from ..services.attribute_parser import AttributeParser
-from ..services.safety_interceptor import SafetyInterceptor
+
+try:
+    from models.schemas import (
+        RawMaterialRecord,
+        MatchCandidate,
+        MatchEvidence,
+        CNMCRecord,
+        MaterialAttributes
+    )
+    from services.attribute_parser import AttributeParser
+    from services.safety_interceptor import SafetyInterceptor
+except ImportError:
+    from ..models.schemas import (
+        RawMaterialRecord,
+        MatchCandidate,
+        MatchEvidence,
+        CNMCRecord,
+        MaterialAttributes
+    )
+    from ..services.attribute_parser import AttributeParser
+    from ..services.safety_interceptor import SafetyInterceptor
 
 router = APIRouter(prefix="/api/harmonize", tags=["Harmonization Engine"])
 

@@ -1,6 +1,9 @@
 import re
 from typing import Dict, Optional
-from ..models.schemas import MaterialAttributes
+try:
+    from models.schemas import MaterialAttributes
+except ImportError:
+    from ..models.schemas import MaterialAttributes
 
 class AttributeParser:
     @staticmethod

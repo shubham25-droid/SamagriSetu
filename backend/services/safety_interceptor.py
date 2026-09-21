@@ -1,5 +1,8 @@
 from typing import Tuple, List
-from ..models.schemas import MaterialAttributes
+try:
+    from models.schemas import MaterialAttributes
+except ImportError:
+    from ..models.schemas import MaterialAttributes
 
 class SafetyInterceptor:
     @staticmethod
